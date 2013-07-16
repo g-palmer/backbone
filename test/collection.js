@@ -534,6 +534,24 @@ $(document).ready(function() {
     }), 1);
   });
 
+  test("sortedIndex with two arg comparator", 3, function () {
+    otherCol.comparator = function(a, b) {
+      return a.get('value') > b.get('value') ? 1 : a.get('value') < b.get('value') ? -1 : 0;
+    };
+    otherCol.add(new Backbone.Model({value: 1}));
+    otherCol.add(new Backbone.Model({value: 3}));
+    otherCol.add(new Backbone.Model({value: 9}));
+    otherCol.add(new Backbone.Model({value: 4}));
+    otherCol.add(new Backbone.Model({value: 11}));
+    otherCol.add(new Backbone.Model({value: 7}));
+    var zero = new Backbone.Model({value: 0});
+    var five = new Backbone.Model({value: 5});
+    var twelve = new Backbone.Model({value: 12});
+    equal(otherCol.sortedIndex(zero), 0);
+    equal(otherCol.sortedIndex(five), 3);
+    equal(otherCol.sortedIndex(twelve), 6);
+  });
+
   test("reset", 12, function() {
     var resetCount = 0;
     var models = col.models;
