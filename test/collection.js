@@ -534,7 +534,7 @@ $(document).ready(function() {
     }), 1);
   });
 
-  test("sortedIndex with two arg comparator", 3, function () {
+  test("#2629 - sortedIndex with two arg comparator", 3, function () {
     otherCol.comparator = function(a, b) {
       return a.get('value') > b.get('value') ? 1 : a.get('value') < b.get('value') ? -1 : 0;
     };
