@@ -841,6 +841,7 @@
       var iterator = _.isFunction(value) ? value : function(model) {
         return model.get(value);
       };
+      if (iterator.length > 1) throw new Error('Cannot use sortedIndex with multi-argument comparator');
       return _.sortedIndex(this.models, model, iterator, context);
     },
 
