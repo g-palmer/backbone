@@ -841,7 +841,16 @@
       var iterator = _.isFunction(value) ? value : function(model) {
         return model.get(value);
       };
-      return _.sortedIndex(this.models, model, iterator, context);
+      if (iterator.length === 2) {
+        var low = 0, high = this.length;
+        while (low < high) {
+          var mid = (low + high) >>> 1;
+          iterator.call(context, model, this.at(mid)) > 0 ? low = mid + 1 : high = mid;
+        }
+        return low;
+      } else {
+        return _.sortedIndex(this.models, model, iterator, context);
+      }
     },
 
     // Pluck an attribute from each model in the collection.
